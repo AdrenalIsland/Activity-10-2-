@@ -1,0 +1,82 @@
+---
+title: 'Activity #10'
+author: "Vaibhav"
+date: "2023-11-29"
+output: pdf_document
+---
+install.packages("groundhog")
+
+```{r loadPackages}
+library("groundhog") #loading groundhog
+pkgs <- c("firstpackage", "secondpackage", "thirdpackage")
+groundhog.library(pkgs, '2023-11-29') 
+```
+---
+
+```{r, echo=TRUE}
+# Collatz Conjecture function
+getStoppingTime <- function(a){
+  count <- 0        # Taking intial value 0
+  while(a!= 1){     # using the loop until 'a' reaches 1
+    if(a%%2==0){
+      a=a/2
+    }else{
+      a=3*a+1
+    }
+    count<- count+1  # incrementing to track number of iterations
+  }
+  return(count)
+}
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this: \# Section 2: Diamond Prices
+
+```{r, echo=TRUE}
+# Load required packages
+library(ggplot2)
+# Sample data for demonstration
+diamonds_data <- diamonds[sample(nrow(diamonds), 1000), ]
+# Create a scatterplot of diamond prices
+ggplot(diamonds_data, aes(carat, price)) +
+  geom_point() +
+  labs(x = "Carat", y = "Price")  #Labels
+
+#Summary Table
+library(ggplot2)               # loading package
+data(diamonds)                 # loading dataset
+library(dplyr)                 # loading package
+statistics <- diamonds %>%     # Group the data by the 'cut'
+  group_by(cut) %>%
+  summarise(
+    Count = n(),      # Calculate the count of observations in each group
+    Min = min(depth),
+    Q1 = quantile(depth, 0.25), #Calculating 1st quartile(25th percentile)
+    Median = median(depth),
+    Q3 = quantile(depth, 0.75), #Calculating 3rd quartile(75th percentile)
+    Max = max(depth),
+    Mean = mean(depth),
+    SD = sd(depth)
+  )
+
+print(statistics)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```         
+# Section 3: Course Learnings
+
+# In this course, I've learned various concepts related to data analysis, statistics, and R programming,these include:
+# writing code that works and is readable to others.
+# understanding data visualization techniques.
+# gaining practical experience with R packages and tools.
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
